@@ -1,0 +1,47 @@
+{% extends 'store/base.html' %}
+{% block title %}Checkout — ShopNest{% endblock %}
+{% block content %}
+
+<div class="container">
+  <h1 class="page-title">Checkout</h1>
+  <div class="checkout-layout">
+    <div class="checkout-form-section">
+      <h2>Shipping Details</h2>
+      <form method="post" class="styled-form">
+        {% csrf_token %}
+        <div class="form-group">
+          <label>Shipping Address</label>
+          {{ form.shipping_address }}
+          {% if form.shipping_address.errors %}
+            <p class="field-error">{{ form.shipping_address.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <div class="form-group">
+          <label>Phone Number</label>
+          {{ form.phone }}
+          {% if form.phone.errors %}
+            <p class="field-error">{{ form.phone.errors.0 }}</p>
+          {% endif %}
+        </div>
+        <button type="submit" class="btn-primary btn-full">Place Order</button>
+      </form>
+    </div>
+
+    <div class="order-review">
+      <h2>Order Review</h2>
+      {% for item in items %}
+      <div class="review-row">
+        <span class="review-name">{{ item.product.name }} × {{ item.quantity }}</span>
+        <span>₹{{ item.subtotal }}</span>
+      </div>
+      {% endfor %}
+      <div class="review-divider"></div>
+      <div class="review-row total">
+        <span>Total</span>
+        <span>₹{{ total }}</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

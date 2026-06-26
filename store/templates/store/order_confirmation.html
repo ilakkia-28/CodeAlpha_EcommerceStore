@@ -1,0 +1,32 @@
+{% extends 'store/base.html' %}
+{% block title %}Order Confirmed — ShopNest{% endblock %}
+{% block content %}
+
+<div class="container">
+  <div class="confirmation-box">
+    <div class="confirm-icon">✓</div>
+    <h1>Order Confirmed!</h1>
+    <p class="confirm-sub">
+      Thank you for your purchase, {{ request.user.first_name|default:request.user.username }}!
+    </p>
+    <div class="order-detail-card">
+      <p><strong>Order #{{ order.id }}</strong></p>
+      <p>Status: <span class="status-badge {{ order.status }}">{{ order.get_status_display }}</span></p>
+      <p>Total: <strong>₹{{ order.total_price }}</strong></p>
+      <p>Shipping to: {{ order.shipping_address }}</p>
+      <h4 style="margin-top:1rem">Items Ordered</h4>
+      {% for item in order.items.all %}
+      <div class="review-row">
+        <span>{{ item.product.name }} × {{ item.quantity }}</span>
+        <span>₹{{ item.subtotal }}</span>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="confirm-actions">
+      <a href="{% url 'order_history' %}" class="btn-primary">View All Orders</a>
+      <a href="{% url 'product_list' %}" class="btn-ghost">Continue Shopping</a>
+    </div>
+  </div>
+</div>
+
+{% endblock %}

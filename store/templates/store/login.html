@@ -1,0 +1,29 @@
+{% extends 'store/base.html' %}
+{% block title %}Login — ShopNest{% endblock %}
+{% block content %}
+
+<div class="auth-container">
+  <div class="auth-box">
+    <h1>Welcome Back</h1>
+    <p class="auth-sub">Login to your ShopNest account</p>
+
+    <form method="post" class="styled-form">
+      {% csrf_token %}
+      <div class="form-group">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Your username" required />
+      </div>
+      <div class="form-group">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Your password" required />
+      </div>
+      <button type="submit" class="btn-primary btn-full">Login</button>
+    </form>
+
+    <p class="auth-switch">
+      Don't have an account? <a href="{% url 'register' %}">Register here</a>
+    </p>
+  </div>
+</div>
+
+{% endblock %}
